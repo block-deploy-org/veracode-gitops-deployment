@@ -1,0 +1,17 @@
+javulna:
+  replicaCount: 1
+
+  image:
+    repository: nchandranveracode/javulna
+    tag: latest
+
+reactvulna:
+  replicaCount: 1
+
+  image:
+    repository: nchandranveracode/reactvulna
+    tag: latest
+
+  environment:
+    BACKEND_URL_BASE: "http://javulna:8080"
+    BACKEND_REST_URL_BASE: "http://javulna:8080/rest/"

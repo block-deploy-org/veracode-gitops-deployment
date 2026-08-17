@@ -1,0 +1,51 @@
+name: Deployment Pipeline
+
+on: 
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  checks: write
+
+jobs:
+  deploy-app-task:
+    
+    runs-on: ubuntu-latest
+    name: App deployment pipeline
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7.0.1
+        id: Checkout
+      - name: Install js-yaml
+        run: npm install js-yaml
+      - name: Extract values from prod-values.yaml
+        id: image-values
+        run: |
+          node -e '
+            const fs = require("fs");
+            const yaml = require("js-yaml");
+            const fileContents = fs.readFileSync("values/prod-values.yaml", "utf8");
+            const data = yaml.load(fileContents);
+            const javulnaImage = data.javulna.image.repository + ":" + data.javulna.image.tag;
+            const reactvulnaImage = data.reactvulna.image.repository + ":" + data.reactvulna.image.tag;
+            const results = [javulnaImage, reactvulnaImage];
+            
+            fs.appendFileSync(process.env.GITHUB_OUTPUT, `results=${results.join(",")}\n`);
+          ' 
+        
+      - uses: block-deploy-org/veracode-safe-to-deploy@main
+        with:
+          vid: ${{ secrets.VERACODE_API_ID }}
+          vkey: ${{ secrets.VERACODE_API_KEY }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          artifacts_list: ${{ steps.image-values.outputs.results }}
+          decision_mode: enforcement   # or: observer
+          repository_owner: ${{ github.repository_owner }}
+          repository_name: ${{ github.event.repository.name }}
+          source_branch: ${{ github.head_ref }}
+          

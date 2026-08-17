@@ -1,0 +1,35 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: vulna
+  namespace: argocd
+
+spec:
+  project: default
+
+  sources:
+
+    # Helm chart from Docker Hub OCI
+    - repoURL: docker.io/nchandranveracode
+      chart: vulna
+      targetRevision: 0.1.0
+      helm:
+        valueFiles:
+          - $values/values/vulna-values.yaml
+
+    # Git repository containing values.yaml
+    - repoURL: https://github.com/block-deploy-org/veracode-gitops-deployment.git
+      targetRevision: main
+      ref: values
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: vulna
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+
+    syncOptions:
+      - CreateNamespace=true
