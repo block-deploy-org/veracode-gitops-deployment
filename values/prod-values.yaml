@@ -5,13 +5,10 @@ javulna:
     repository: nchandranveracode/javulna
     tag: v0.1.0
 
+
 reactvulna:
   replicaCount: 1
 
   image:
     repository: nchandranveracode/reactvulna
-    tag: v0.1.0
-
-  environment:
-    BACKEND_URL_BASE: "http://javulna:8080"
-    BACKEND_REST_URL_BASE: "http://javulna:8080/rest/"
+    tag: v0.1.0 
