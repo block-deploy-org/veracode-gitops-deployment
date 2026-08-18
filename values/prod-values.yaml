@@ -3,7 +3,7 @@ javulna:
 
   image:
     repository: nchandranveracode/javulna
-    tag: latest
+    tag: v0.1.2
 
 
 reactvulna:
@@ -11,4 +11,4 @@ reactvulna:
 
   image:
     repository: nchandranveracode/reactvulna
-    tag: latest
+    tag: v0.1.2
