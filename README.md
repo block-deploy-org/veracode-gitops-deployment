@@ -1,5 +1,6 @@
 Make sure Kubernetes are running in your local machine you can use colima or docker desktop 
 
+
 # Install Argo CD Helm repository
 ``` bash
 helm repo add argo https://argoproj.github.io/argo-helm
