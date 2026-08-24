@@ -48,4 +48,5 @@ jobs:
           repository_owner: ${{ github.repository_owner }}
           repository_name: ${{ github.event.repository.name }}
           source_branch: ${{ github.head_ref }}
+          pull_request: ${{ github.event }}
           
