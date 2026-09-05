@@ -1,0 +1,13 @@
+businessApplication:
+  name: vulna-app
+  uuid: 5eb7b1610439979c1b47003845ce72247b106215
+  assets:
+     - name: nchandranveracode/javulna
+       tag: v0.1.0
+       branch: main
+       sha: ae0d053
+       uuid: 327ccecb2097a1107bc36348a8b9c3b42be3b82e
+     - name: nchandranveracode/reactvulna
+       tag: v0.1.0
+       sha: ce8faa3
+       uuid: 5eb7b1610439979c1b47003845ce72247b106215
