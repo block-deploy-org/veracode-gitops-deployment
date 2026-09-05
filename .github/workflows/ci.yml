@@ -38,7 +38,7 @@ jobs:
             fs.appendFileSync(process.env.GITHUB_OUTPUT, `results=${results.join(",")}\nbusinessId=${businessId}`);
           ' 
         
-      - uses: block-deploy-org/veracode-safe-to-deploy@main
+      - uses: stockroom-org1/safe-to-deploy@main
         with:
           vid: ${{ secrets.VERACODE_API_ID }}
           vkey: ${{ secrets.VERACODE_API_KEY }}
