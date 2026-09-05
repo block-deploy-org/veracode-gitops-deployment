@@ -9,6 +9,7 @@ on:
 permissions:
   contents: read
   checks: write
+  pull-requests: write
 
 jobs:
   deploy-app-task:
@@ -33,19 +34,21 @@ jobs:
             const javulnaImage = data.javulna.image.repository + ":" + data.javulna.image.tag;
             const reactvulnaImage = data.reactvulna.image.repository + ":" + data.reactvulna.image.tag;
             const results = [javulnaImage, reactvulnaImage];
-            
-            fs.appendFileSync(process.env.GITHUB_OUTPUT, `results=${results.join(",")}\n`);
+            const businessId = data.app_uuid;
+            fs.appendFileSync(process.env.GITHUB_OUTPUT, `results=${results.join(",")}\nbusinessId=${businessId}`);
           ' 
         
-      - uses: block-deploy-org/veracode-safe-to-deploy@main
+      - uses: stockroom-org1/safe-to-deploy@main
         with:
           vid: ${{ secrets.VERACODE_API_ID }}
           vkey: ${{ secrets.VERACODE_API_KEY }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
           repository: ${{ github.repository }}
+          businessId: ${{ steps.image-values.outputs.businessId }}
           artifacts_list: ${{ steps.image-values.outputs.results }}
           decision_mode: enforcement   # or: observer
           repository_owner: ${{ github.repository_owner }}
           repository_name: ${{ github.event.repository.name }}
           source_branch: ${{ github.head_ref }}
+          pull_request: ${{ github.event.pull_request.number }}
           

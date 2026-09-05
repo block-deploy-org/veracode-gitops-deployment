@@ -1,5 +1,7 @@
+app_uuid: 5eb7b1610439979c1b48369445ce72247b106215
 javulna:
   replicaCount: 1
+  
 
   image:
     repository: nchandranveracode/javulna
