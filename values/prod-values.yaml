@@ -1,9 +1,12 @@
+businessApplication:
+  uuid: 327ccecb2097a1107bc36348a8b9c3b42be3b82e
+  name: javulna
 javulna:
   replicaCount: 1
 
   image:
     repository: nchandranveracode/javulna
-    tag: v0.1.1
+    tag: v0.1.2
 
 
 reactvulna:
@@ -11,4 +14,4 @@ reactvulna:
 
   image:
     repository: nchandranveracode/reactvulna
-    tag: v0.1.1
+    tag: v0.1.2
